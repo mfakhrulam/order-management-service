@@ -53,11 +53,11 @@ class MasterOrderServiceImpl(
         var productName = ""
         var amount = 0
 
-        // cek apakah role admin
+        // cek apakah role USER
         if(!roleUser.equals("user")) {
             throw CustomException(
-                "Unauthorized user",
-                HttpStatus.UNAUTHORIZED.value()
+                "Forbidden",
+                HttpStatus.FORBIDDEN.value()
             )
         }
 
@@ -102,7 +102,7 @@ class MasterOrderServiceImpl(
         val order = masterOrderRepository.save(orderRaw)
         return ResGetOrderDto(
             id = order.id,
-            amount = order.amount,
+            amount = amount,
             isPaid = order.isPaid,
             paymentMethod = payment.paymentMethod,
             username = username,
